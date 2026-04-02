@@ -1,89 +1,158 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>For Ashu ❤️</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Ashu</title>
   <style>
+    /* Full screen background with stars */
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #000000, #2b0033);
-      color: white;
-      text-align: center;
-      font-family: Arial;
       overflow: hidden;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: radial-gradient(#000011, #000033);
+      color: #fff;
+      text-align: center;
+      height: 100vh;
     }
 
-    h1 {
-      margin-top: 100px;
-      font-size: 35px;
+    /* Star background animation */
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite alternate;
     }
 
-    button {
+    @keyframes twinkle {
+      from {opacity: 0.2;}
+      to {opacity: 1;}
+    }
+
+    /* Main birthday text */
+    #mainText {
+      position: absolute;
+      top: 30%;
+      width: 100%;
+      font-size: 3em;
+      font-weight: bold;
+      animation: fadeIn 3s forwards;
+    }
+
+    @keyframes fadeIn {
+      0% {opacity: 0; transform: scale(0.8);}
+      100% {opacity: 1; transform: scale(1);}
+    }
+
+    /* Surprise button */
+    #surpriseBtn {
+      margin-top: 40%;
       padding: 15px 30px;
-      font-size: 18px;
-      background: red;
-      color: white;
+      font-size: 1.5em;
+      cursor: pointer;
       border: none;
       border-radius: 10px;
+      background: #ff3366;
+      color: white;
+      transition: 0.3s;
     }
 
-    #message {
-      display: none;
-      margin-top: 30px;
-      font-size: 20px;
+    #surpriseBtn:hover {
+      background: #ff6699;
     }
 
+    /* Hearts animation */
     .heart {
-      position: fixed;
-      color: red;
-      font-size: 20px;
-      animation: fall 5s linear infinite;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: floatUp 3s ease-in forwards;
     }
 
-    @keyframes fall {
-      0% { top: -10%; opacity: 1; }
-      100% { top: 110%; opacity: 0; }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: 10px; top: 0; }
+
+    @keyframes floatUp {
+      0% {opacity: 1; transform: translateY(0) rotate(45deg);}
+      100% {opacity: 0; transform: translateY(-300px) rotate(45deg);}
+    }
+
+    /* Final message */
+    #finalMsg {
+      display: none;
+      font-size: 1.8em;
+      margin-top: 20px;
+      line-height: 1.5em;
+      animation: fadeIn 2s forwards;
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
     }
   </style>
 </head>
-
 <body>
 
-<h1>Namaste Ashu ❤️</h1>
+  <div id="mainText">Happy Birthday Ashu 🎉</div>
 
-<button onclick="startSurprise()">Click for Surprise</button>
+  <button id="surpriseBtn">🎁 Click for Surprise 🎁</button>
 
-<div id="message">
-  <p>You are my everything 💖</p>
-  <p>I’m so lucky to have you 🥺</p>
-  <p>Forever with you ❤️</p>
-</div>
+  <div id="finalMsg">
+    Happy Birthday, my love! 🥰<br>
+    Every moment with you feels like a dream, and I can’t wait to make even more amazing memories together.<br>
+    You’re my favorite person, my cuddle buddy, and my heart’s happiness 💖<br>
+    Keep smiling and never forget how much I love you 😘🎉
+  </div>
 
-<audio id="song">
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
+  <audio id="bdaySong" autoplay>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
 
-<script>
-function startSurprise() {
-  document.getElementById("message").style.display = "block";
-  document.getElementById("song").play();
+  <script>
+    // Generate stars
+    for(let i=0; i<150; i++){
+      let star = document.createElement('div');
+      star.className = 'star';
+      star.style.top = Math.random()*100 + '%';
+      star.style.left = Math.random()*100 + '%';
+      star.style.width = (Math.random()*3+1) + 'px';
+      star.style.height = star.style.width;
+      star.style.animationDuration = (Math.random()*3+2) + 's';
+      document.body.appendChild(star);
+    }
 
-  // hearts generate
-  setInterval(() => {
-    let heart = document.createElement("div");
-    heart.innerHTML = "❤️";
-    heart.className = "heart";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
-    document.body.appendChild(heart);
+    // Surprise button click
+    const btn = document.getElementById('surpriseBtn');
+    const finalMsg = document.getElementById('finalMsg');
 
-    setTimeout(() => {
-      heart.remove();
-    }, 5000);
-  }, 300);
-}
-</script>
+    btn.addEventListener('click', () => {
+      finalMsg.style.display = 'block';
+      // Generate hearts
+      for(let i=0; i<50; i++){
+        let heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random()*100 + '%';
+        heart.style.animationDuration = (Math.random()*2 + 2) + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => { heart.remove(); }, 3000);
+      }
+      btn.style.display = 'none';
+    });
+  </script>
 
 </body>
 </html>
