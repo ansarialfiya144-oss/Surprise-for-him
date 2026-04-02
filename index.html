@@ -100,3 +100,68 @@
       margin-right: auto;
       animation: fadeIn 2s forwards;
     }
+
+  </style>
+</head>
+<body>
+
+  <div id="mainText">Happy Birthday Ashu 🎉</div>
+
+  <button id="surpriseBtn">🎁 Click for Surprise 🎁</button>
+
+  <div id="finalMsg">
+    Happy Birthday, my love! 🥰<br>
+    Every moment with you feels like a dream, and I can’t wait to make even more amazing memories together.<br>
+    You’re my favorite person, my cuddle buddy, and my heart’s happiness 💖<br>
+    Keep smiling and never forget how much I love you 😘🎉
+  </div>
+
+  <!-- Soft romantic instrumental music placeholder -->
+  <audio id="bdaySong" autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2023/03/15/audio_3da8e71594.mp3?filename=romantic-piano-11960.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Star background
+    for (let i = 0; i < 150; i++) {
+      let star = document.createElement('div');
+      star.className = 'star';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.width = (Math.random() * 3 + 1) + 'px';
+      star.style.height = star.style.width;
+      star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      document.body.appendChild(star);
+    }
+
+    const btn = document.getElementById('surpriseBtn');
+    const mainText = document.getElementById('mainText');
+    const finalMsg = document.getElementById('finalMsg');
+
+    btn.addEventListener('click', () => {
+
+      // Hide the original birthday text
+      mainText.style.display = 'none';
+
+      // Show final message
+      finalMsg.style.display = 'block';
+
+      // Create falling hearts
+      for (let i = 0; i < 50; i++) {
+        let heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        document.body.appendChild(heart);
+
+        // Remove each heart after animation
+        setTimeout(() => { heart.remove(); }, 5000);
+      }
+
+      // Hide button
+      btn.style.display = 'none';
+    });
+  </script>
+
+</body>
+</html>
