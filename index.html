@@ -63,31 +63,13 @@
       background: #ff6699;
     }
 
-    .heart {
+    canvas {
       position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      transform: rotate(0deg);
-      animation: fall 4s linear forwards;
-    }
-
-    .heart::before,
-    .heart::after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      border-radius: 50%;
-    }
-
-    .heart::before { top: -10px; left: 0; }
-    .heart::after { left: 10px; top: 0; }
-
-    @keyframes fall {
-      0% {opacity: 1; transform: translateY(-50px);}
-      100% {opacity: 0; transform: translateY(700px);}
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
     }
 
     #finalMsg {
@@ -99,6 +81,8 @@
       margin-left: auto;
       margin-right: auto;
       animation: fadeIn 2s forwards;
+      position: relative;
+      z-index: 2;
     }
   </style>
 </head>
@@ -114,6 +98,8 @@
     You’re my favorite person, my cuddle buddy, and my heart’s happiness 💖<br>
     Keep smiling and never forget how much I love you 😘🎉
   </div>
+
+  <canvas id="fireworks"></canvas>
 
   <audio id="bdaySong" autoplay loop>
     <source src="https://cdn.pixabay.com/download/audio/2023/03/15/audio_3da8e71594.mp3?filename=romantic-piano-11960.mp3" type="audio/mpeg">
@@ -132,6 +118,62 @@
       document.body.appendChild(star);
     }
 
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particle {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.radius = Math.random() * 3 + 2;
+        this.speedX = (Math.random() - 0.5) * 6;
+        this.speedY = (Math.random() - 0.5) * 6;
+        this.alpha = 1;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.alpha -= 0.02;
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    let particles = [];
+
+    function explode(x, y) {
+      const colors = ['#ff3f8e','#04c2c9','#2e55c1','#fffa65','#ff6f61'];
+      for(let i=0;i<50;i++){
+        const color = colors[Math.floor(Math.random()*colors.length)];
+        particles.push(new Particle(x,y,color));
+      }
+    }
+
+    function animate() {
+      ctx.fillStyle = 'rgba(0,0,0,0.2)';
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      for(let i=0;i<particles.length;i++){
+        particles[i].update();
+        particles[i].draw();
+        if(particles[i].alpha <= 0){
+          particles.splice(i,1);
+          i--;
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
     const btn = document.getElementById('surpriseBtn');
     const mainText = document.getElementById('mainText');
     const finalMsg = document.getElementById('finalMsg');
@@ -139,19 +181,19 @@
     btn.addEventListener('click', () => {
       mainText.style.display = 'none';
       finalMsg.style.display = 'block';
-
-      // Fixed horizontal positions for hearts (uniform)
-      const heartPositions = [10,20,30,40,50,60,70,80,90]; // percentage
-      heartPositions.forEach(pos => {
-        let heart = document.createElement('div');
-        heart.className = 'heart';
-        heart.style.left = pos + '%';
-        heart.style.animationDuration = '4s'; // all same
-        document.body.appendChild(heart);
-        setTimeout(() => { heart.remove(); }, 4500);
-      });
-
       btn.style.display = 'none';
+
+      // Fireworks explode at random positions
+      for(let i=0;i<8;i++){
+        const x = Math.random()*canvas.width;
+        const y = Math.random()*canvas.height/2;
+        explode(x,y);
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     });
   </script>
 
