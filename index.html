@@ -7,7 +7,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #000000, #1a001a);
+      background: linear-gradient(135deg, #000000, #2b0033);
       color: white;
       text-align: center;
       font-family: Arial;
@@ -34,10 +34,16 @@
       font-size: 20px;
     }
 
-    canvas {
+    .heart {
       position: fixed;
-      top: 0;
-      left: 0;
+      color: red;
+      font-size: 20px;
+      animation: fall 5s linear infinite;
+    }
+
+    @keyframes fall {
+      0% { top: -10%; opacity: 1; }
+      100% { top: 110%; opacity: 0; }
     }
   </style>
 </head>
@@ -58,58 +64,25 @@
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
 
-<canvas id="canvas"></canvas>
-
 <script>
 function startSurprise() {
   document.getElementById("message").style.display = "block";
   document.getElementById("song").play();
-  launchFireworks();
-}
 
-// 🎆 Fireworks
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particles = [];
-
-function launchFireworks() {
+  // hearts generate
   setInterval(() => {
-    for (let i = 0; i < 50; i++) {
-      particles.push({
-        x: canvas.width / 2,
-        y: canvas.height / 2,
-        dx: (Math.random() - 0.5) * 10,
-        dy: (Math.random() - 0.5) * 10,
-        life: 100
-      });
-    }
-  }, 500);
+    let heart = document.createElement("div");
+    heart.innerHTML = "❤️";
+    heart.className = "heart";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 5000);
+  }, 300);
 }
-
-function animate() {
-  requestAnimationFrame(animate);
-  ctx.fillStyle = "rgba(0,0,0,0.2)";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  particles.forEach((p, i) => {
-    p.x += p.dx;
-    p.y += p.dy;
-    p.life--;
-
-    ctx.fillStyle = "red";
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
-    ctx.fill();
-
-    if (p.life <= 0) particles.splice(i, 1);
-  });
-}
-
-animate();
 </script>
 
 </body>
