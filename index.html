@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Ashu</title>
   <style>
-    /* Full screen background with stars */
     body {
       margin: 0;
       padding: 0;
@@ -17,7 +16,6 @@
       height: 100vh;
     }
 
-    /* Star background animation */
     .star {
       position: absolute;
       width: 2px;
@@ -32,10 +30,9 @@
       to {opacity: 1;}
     }
 
-    /* Main birthday text */
     #mainText {
       position: absolute;
-      top: 30%;
+      top: 25%;
       width: 100%;
       font-size: 3em;
       font-weight: bold;
@@ -47,9 +44,11 @@
       100% {opacity: 1; transform: scale(1);}
     }
 
-    /* Surprise button */
     #surpriseBtn {
-      margin-top: 40%;
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translateX(-50%);
       padding: 15px 30px;
       font-size: 1.5em;
       cursor: pointer;
@@ -64,7 +63,6 @@
       background: #ff6699;
     }
 
-    /* Hearts animation */
     .heart {
       position: absolute;
       width: 20px;
@@ -92,16 +90,15 @@
       100% {opacity: 0; transform: translateY(-300px) rotate(45deg);}
     }
 
-    /* Final message */
     #finalMsg {
       display: none;
       font-size: 1.8em;
       margin-top: 20px;
       line-height: 1.5em;
-      animation: fadeIn 2s forwards;
       max-width: 80%;
       margin-left: auto;
       margin-right: auto;
+      animation: fadeIn 2s forwards;
     }
   </style>
 </head>
@@ -118,8 +115,9 @@
     Keep smiling and never forget how much I love you 😘🎉
   </div>
 
-  <audio id="bdaySong" autoplay>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  <!-- Soft romantic song -->
+  <audio id="bdaySong" autoplay loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
   </audio>
 
   <script>
@@ -135,11 +133,14 @@
       document.body.appendChild(star);
     }
 
-    // Surprise button click
     const btn = document.getElementById('surpriseBtn');
     const finalMsg = document.getElementById('finalMsg');
+    const mainText = document.getElementById('mainText');
 
     btn.addEventListener('click', () => {
+      // Move main text up slightly
+      mainText.style.top = '10%';
+      // Show final message beneath
       finalMsg.style.display = 'block';
       // Generate hearts
       for(let i=0; i<50; i++){
