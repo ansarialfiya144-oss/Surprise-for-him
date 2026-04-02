@@ -14,6 +14,7 @@
       color: white;
       text-align: center;
       height: 100vh;
+      position: relative;
     }
 
     .star {
@@ -23,6 +24,7 @@
       background: white;
       border-radius: 50%;
       animation: twinkle 2s infinite alternate;
+      z-index: 0;
     }
 
     @keyframes twinkle {
@@ -31,24 +33,16 @@
     }
 
     #mainText {
-      position: absolute;
-      top: 35%;
-      width: 100%;
+      position: relative;
+      top: 30%;
       font-size: 3em;
       font-weight: bold;
-      animation: fadeIn 2s forwards;
-    }
-
-    @keyframes fadeIn {
-      0% {opacity: 0; transform: scale(0.8);}
-      100% {opacity: 1; transform: scale(1);}
+      z-index: 2;
     }
 
     #surpriseBtn {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translateX(-50%);
+      position: relative;
+      top: 35%;
       padding: 15px 30px;
       font-size: 1.5em;
       cursor: pointer;
@@ -57,19 +51,11 @@
       background: #ff3366;
       color: white;
       transition: 0.3s;
+      z-index: 2;
     }
 
     #surpriseBtn:hover {
       background: #ff6699;
-    }
-
-    canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
     }
 
     #finalMsg {
@@ -80,28 +66,35 @@
       max-width: 85%;
       margin-left: auto;
       margin-right: auto;
-      animation: fadeIn 2s forwards;
-      position: relative;
       z-index: 2;
+      position: relative;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1; /* behind text and button */
     }
   </style>
 </head>
 <body>
 
   <div id="mainText">Happy Birthday Ashu 🎉</div>
-
   <button id="surpriseBtn">🎁 Click for Surprise 🎁</button>
-
   <div id="finalMsg">
     Happy Birthday, my love! 🥰<br>
     Every moment with you feels like a dream, and I can’t wait to make even more amazing memories together.<br>
-    You’re my favorite person, my cuddle buddy, and my heart’s happiness 💖<br>
+    You’re my favorite person and my heart’s happiness 💖<br>
     Keep smiling and never forget how much I love you 😘🎉
   </div>
 
   <canvas id="fireworks"></canvas>
 
-  <audio id="bdaySong" autoplay loop>
+  <audio id="bdaySong">
     <source src="https://cdn.pixabay.com/download/audio/2023/03/15/audio_3da8e71594.mp3?filename=romantic-piano-11960.mp3" type="audio/mpeg">
   </audio>
 
@@ -118,6 +111,7 @@
       document.body.appendChild(star);
     }
 
+    // Canvas fireworks
     const canvas = document.getElementById('fireworks');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -177,18 +171,33 @@
     const btn = document.getElementById('surpriseBtn');
     const mainText = document.getElementById('mainText');
     const finalMsg = document.getElementById('finalMsg');
+    const bdaySong = document.getElementById('bdaySong');
 
     btn.addEventListener('click', () => {
       mainText.style.display = 'none';
       finalMsg.style.display = 'block';
       btn.style.display = 'none';
+      
+      // Play song on click
+      bdaySong.play();
 
-      // Fireworks explode at random positions
+      // Fireworks explode at random positions continuously
       for(let i=0;i<8;i++){
         const x = Math.random()*canvas.width;
         const y = Math.random()*canvas.height/2;
         explode(x,y);
       }
+
+      // Continue fireworks every 700ms for few seconds
+      let fwInterval = setInterval(() => {
+        for(let i=0;i<5;i++){
+          const x = Math.random()*canvas.width;
+          const y = Math.random()*canvas.height/2;
+          explode(x,y);
+        }
+      }, 700);
+
+      setTimeout(() => clearInterval(fwInterval), 5000); // stop after 5 sec
     });
 
     window.addEventListener('resize', () => {
@@ -196,6 +205,5 @@
       canvas.height = window.innerHeight;
     });
   </script>
-
 </body>
 </html>
