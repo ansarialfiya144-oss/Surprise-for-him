@@ -63,14 +63,13 @@
       background: #ff6699;
     }
 
-    /* Hearts animation */
     .heart {
       position: absolute;
       width: 20px;
       height: 20px;
       background: red;
-      transform: rotate(45deg);
-      animation: floatUp 3s ease-in forwards;
+      transform: rotate(0deg);
+      animation: fall 4s linear forwards;
     }
 
     .heart::before,
@@ -112,11 +111,10 @@
   <div id="finalMsg">
     Happy Birthday, my love! 🥰<br>
     Every moment with you feels like a dream, and I can’t wait to make even more amazing memories together.<br>
-    You’re my favorite person and my heart’s happiness 💖<br>
+    You’re my favorite person, my cuddle buddy, and my heart’s happiness 💖<br>
     Keep smiling and never forget how much I love you 😘🎉
   </div>
 
-  <!-- Soft romantic instrumental music -->
   <audio id="bdaySong" autoplay loop>
     <source src="https://cdn.pixabay.com/download/audio/2023/03/15/audio_3da8e71594.mp3?filename=romantic-piano-11960.mp3" type="audio/mpeg">
   </audio>
@@ -139,21 +137,21 @@
     const finalMsg = document.getElementById('finalMsg');
 
     btn.addEventListener('click', () => {
-      mainText.style.display = 'none'; // hide initial text
+      mainText.style.display = 'none';
       finalMsg.style.display = 'block';
 
-      // Create falling hearts
-      for (let i = 0; i < 50; i++) {
+      // Fixed horizontal positions for hearts (uniform)
+      const heartPositions = [10,20,30,40,50,60,70,80,90]; // percentage
+      heartPositions.forEach(pos => {
         let heart = document.createElement('div');
         heart.className = 'heart';
-        heart.style.left = Math.random() * 100 + '%';
-        heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        heart.style.left = pos + '%';
+        heart.style.animationDuration = '4s'; // all same
         document.body.appendChild(heart);
+        setTimeout(() => { heart.remove(); }, 4500);
+      });
 
-        setTimeout(() => { heart.remove(); }, 5000);
-      }
-
-      btn.style.display = 'none'; // hide button
+      btn.style.display = 'none';
     });
   </script>
 
