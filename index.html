@@ -65,29 +65,29 @@
 
     .heart {
       position: absolute;
-      width: 25px;
-      height: 25px;
+      width: 20px;
+      height: 20px;
       background: red;
-      transform: rotate(45deg);
-      animation: fallDown 4s ease-in infinite;
+      transform: rotate(0deg);
+      animation: fall 4s linear forwards;
     }
 
     .heart::before,
     .heart::after {
       content: "";
       position: absolute;
-      width: 25px;
-      height: 25px;
+      width: 20px;
+      height: 20px;
       background: red;
       border-radius: 50%;
     }
 
-    .heart::before { top: -12px; left: 0; }
-    .heart::after { left: 12px; top: 0; }
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: 10px; top: 0; }
 
-    @keyframes fallDown {
-      0% {opacity: 1; transform: translateY(-50px) rotate(45deg);}
-      100% {opacity: 0; transform: translateY(650px) rotate(45deg);}
+    @keyframes fall {
+      0% {opacity: 1; transform: translateY(-50px);}
+      100% {opacity: 0; transform: translateY(700px);}
     }
 
     #finalMsg {
@@ -100,7 +100,6 @@
       margin-right: auto;
       animation: fadeIn 2s forwards;
     }
-
   </style>
 </head>
 <body>
@@ -116,13 +115,13 @@
     Keep smiling and never forget how much I love you 😘🎉
   </div>
 
-  <!-- Soft romantic instrumental music placeholder -->
+  <!-- Soft romantic instrumental music -->
   <audio id="bdaySong" autoplay loop>
     <source src="https://cdn.pixabay.com/download/audio/2023/03/15/audio_3da8e71594.mp3?filename=romantic-piano-11960.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    // Star background
+    // Stars
     for (let i = 0; i < 150; i++) {
       let star = document.createElement('div');
       star.className = 'star';
@@ -139,11 +138,7 @@
     const finalMsg = document.getElementById('finalMsg');
 
     btn.addEventListener('click', () => {
-
-      // Hide the original birthday text
-      mainText.style.display = 'none';
-
-      // Show final message
+      mainText.style.display = 'none'; // hide initial text
       finalMsg.style.display = 'block';
 
       // Create falling hearts
@@ -154,12 +149,10 @@
         heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
         document.body.appendChild(heart);
 
-        // Remove each heart after animation
         setTimeout(() => { heart.remove(); }, 5000);
       }
 
-      // Hide button
-      btn.style.display = 'none';
+      btn.style.display = 'none'; // hide button
     });
   </script>
 
