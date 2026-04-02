@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>For You ❤️</title>
+  <title>For Ashu ❤️</title>
+
   <style>
     body {
-      background: black;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #000000, #1a001a);
       color: white;
       text-align: center;
       font-family: Arial;
-      margin-top: 100px;
+      overflow: hidden;
     }
+
+    h1 {
+      margin-top: 100px;
+      font-size: 35px;
+    }
+
     button {
       padding: 15px 30px;
       font-size: 18px;
@@ -18,34 +27,90 @@
       border: none;
       border-radius: 10px;
     }
+
     #message {
       display: none;
       margin-top: 30px;
       font-size: 20px;
     }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
   </style>
 </head>
 
 <body>
-<audio controls autoplay loop>
-  <source src="https://www2.cs.uic.edu/~i101/SoundFiles/Perfect.mp3" type="audio/mpeg">
-</audio>
 
-<h1>Hey Love ❤️</h1>
+<h1>Namaste Ashu ❤️</h1>
 
-<button onclick="showMessage()">Click for Surprise</button>
+<button onclick="startSurprise()">Click for Surprise</button>
 
 <div id="message">
-  <p>You are the best thing in my life 💖</p>
+  <p>You are my everything 💖</p>
   <p>I’m so lucky to have you 🥺</p>
-  <p>Happy Birthday / I Love You ❤️</p>
+  <p>Forever with you ❤️</p>
 </div>
 
+<audio id="song">
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="canvas"></canvas>
+
 <script>
-function showMessage() {
+function startSurprise() {
   document.getElementById("message").style.display = "block";
+  document.getElementById("song").play();
+  launchFireworks();
 }
-</script> 
+
+// 🎆 Fireworks
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+function launchFireworks() {
+  setInterval(() => {
+    for (let i = 0; i < 50; i++) {
+      particles.push({
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        dx: (Math.random() - 0.5) * 10,
+        dy: (Math.random() - 0.5) * 10,
+        life: 100
+      });
+    }
+  }, 500);
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  ctx.fillStyle = "rgba(0,0,0,0.2)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach((p, i) => {
+    p.x += p.dx;
+    p.y += p.dy;
+    p.life--;
+
+    ctx.fillStyle = "red";
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+    ctx.fill();
+
+    if (p.life <= 0) particles.splice(i, 1);
+  });
+}
+
+animate();
+</script>
 
 </body>
 </html>
