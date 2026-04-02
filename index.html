@@ -1,209 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday Ashu</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      background: radial-gradient(#000011, #000033);
-      color: white;
-      text-align: center;
-      height: 100vh;
-      position: relative;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Ashu</title>
+<style>
+  body {
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    font-family:'Comic Sans MS', cursive, sans-serif;
+    background: radial-gradient(#000011, #000033);
+    color:white;
+    text-align:center;
+    height:100vh;
+    position:relative;
+  }
 
-    .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: white;
-      border-radius: 50%;
-      animation: twinkle 2s infinite alternate;
-      z-index: 0;
-    }
+  .star {
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    animation:twinkle 2s infinite alternate;
+    z-index:0;
+  }
 
-    @keyframes twinkle {
-      from {opacity: 0.2;}
-      to {opacity: 1;}
-    }
+  @keyframes twinkle {
+    from {opacity:0.2;}
+    to {opacity:1;}
+  }
 
-    #mainText {
-      position: relative;
-      top: 30%;
-      font-size: 3em;
-      font-weight: bold;
-      z-index: 2;
-    }
+  #mainText {
+    position:relative;
+    top:30%;
+    font-size:3em;
+    font-weight:bold;
+    z-index:2;
+  }
 
-    #surpriseBtn {
-      position: relative;
-      top: 35%;
-      padding: 15px 30px;
-      font-size: 1.5em;
-      cursor: pointer;
-      border: none;
-      border-radius: 10px;
-      background: #ff3366;
-      color: white;
-      transition: 0.3s;
-      z-index: 2;
-    }
+  #surpriseBtn {
+    position:relative;
+    top:35%;
+    padding:15px 30px;
+    font-size:1.5em;
+    cursor:pointer;
+    border:none;
+    border-radius:10px;
+    background:#ff3366;
+    color:white;
+    transition:0.3s;
+    z-index:2;
+  }
 
-    #surpriseBtn:hover {
-      background: #ff6699;
-    }
+  #surpriseBtn:hover {
+    background:#ff6699;
+  }
 
-    #finalMsg {
-      display: none;
-      font-size: 1.8em;
-      margin-top: 20px;
-      line-height: 1.5em;
-      max-width: 85%;
-      margin-left: auto;
-      margin-right: auto;
-      z-index: 2;
-      position: relative;
-    }
+  #finalMsg {
+    display:none;
+    font-size:1.8em;
+    margin-top:20px;
+    line-height:1.5em;
+    max-width:85%;
+    margin-left:auto;
+    margin-right:auto;
+    z-index:2;
+    position:relative;
+  }
 
-    canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1; /* behind text and button */
-    }
-  </style>
+  .heart {
+    position:absolute;
+    font-size:2em;
+    color:#ff3f8e;
+    animation:fall 5s linear forwards;
+  }
+
+  @keyframes fall {
+    0% {top:-50px; opacity:1;}
+    100% {top:100vh; opacity:0;}
+  }
+
+</style>
 </head>
 <body>
 
-  <div id="mainText">Happy Birthday Ashu 🎉</div>
-  <button id="surpriseBtn">🎁 Click for Surprise 🎁</button>
-  <div id="finalMsg">
-    Happy Birthday, my love! 🥰<br>
-    Every moment with you feels like a dream, and I can’t wait to make even more amazing memories together.<br>
-    You’re my favorite person and my heart’s happiness 💖<br>
-    Keep smiling and never forget how much I love you 😘🎉
-  </div>
+<div id="mainText">Happy Birthday Ashu 🎉</div>
+<button id="surpriseBtn">🎁 Click for Surprise 🎁</button>
+<div id="finalMsg">
+  Happy Birthday, my love! 🥰<br>
+  Every moment with you feels like a dream, and I can’t wait to make even more amazing memories together.<br>
+  You’re my favorite person, my cuddle buddy, and my heart’s happiness 💖<br>
+  Keep smiling and never forget how much I love you 😘🎉
+</div>
 
-  <canvas id="fireworks"></canvas>
+<audio id="bdaySong">
+  <source src="https://cdn.pixabay.com/download/audio/2023/03/15/audio_3da8e71594.mp3?filename=romantic-piano-11960.mp3" type="audio/mpeg">
+</audio>
 
-  <audio id="bdaySong">
-    <source src="https://cdn.pixabay.com/download/audio/2023/03/15/audio_3da8e71594.mp3?filename=romantic-piano-11960.mp3" type="audio/mpeg">
-  </audio>
+<script>
+  // Stars
+  for(let i=0;i<150;i++){
+    let star = document.createElement('div');
+    star.className='star';
+    star.style.top=Math.random()*100+'%';
+    star.style.left=Math.random()*100+'%';
+    star.style.width=(Math.random()*3+1)+'px';
+    star.style.height=star.style.width;
+    star.style.animationDuration=(Math.random()*3+2)+'s';
+    document.body.appendChild(star);
+  }
 
-  <script>
-    // Stars
-    for (let i = 0; i < 150; i++) {
-      let star = document.createElement('div');
-      star.className = 'star';
-      star.style.top = Math.random() * 100 + '%';
-      star.style.left = Math.random() * 100 + '%';
-      star.style.width = (Math.random() * 3 + 1) + 'px';
-      star.style.height = star.style.width;
-      star.style.animationDuration = (Math.random() * 3 + 2) + 's';
-      document.body.appendChild(star);
-    }
+  const btn = document.getElementById('surpriseBtn');
+  const mainText = document.getElementById('mainText');
+  const finalMsg = document.getElementById('finalMsg');
+  const bdaySong = document.getElementById('bdaySong');
 
-    // Canvas fireworks
-    const canvas = document.getElementById('fireworks');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+  function createHeart(){
+    const heart = document.createElement('div');
+    heart.className='heart';
+    heart.style.left=Math.random()*100+'vw';
+    heart.style.fontSize=(Math.random()*30+20)+'px';
+    heart.innerText='💖';
+    document.body.appendChild(heart);
+    setTimeout(()=>{heart.remove()},5000); // remove after falling
+  }
 
-    class Particle {
-      constructor(x, y, color) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.radius = Math.random() * 3 + 2;
-        this.speedX = (Math.random() - 0.5) * 6;
-        this.speedY = (Math.random() - 0.5) * 6;
-        this.alpha = 1;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        this.alpha -= 0.02;
-      }
-      draw() {
-        ctx.save();
-        ctx.globalAlpha = this.alpha;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-        ctx.restore();
-      }
-    }
+  btn.addEventListener('click',()=>{
+    mainText.style.display='none';
+    btn.style.display='none';
+    finalMsg.style.display='block';
 
-    let particles = [];
+    bdaySong.play();
 
-    function explode(x, y) {
-      const colors = ['#ff3f8e','#04c2c9','#2e55c1','#fffa65','#ff6f61'];
-      for(let i=0;i<50;i++){
-        const color = colors[Math.floor(Math.random()*colors.length)];
-        particles.push(new Particle(x,y,color));
-      }
-    }
+    // create hearts every 300ms for 5 sec
+    const heartInterval = setInterval(createHeart,300);
+    setTimeout(()=>clearInterval(heartInterval),5000);
+  });
 
-    function animate() {
-      ctx.fillStyle = 'rgba(0,0,0,0.2)';
-      ctx.fillRect(0,0,canvas.width,canvas.height);
-      for(let i=0;i<particles.length;i++){
-        particles[i].update();
-        particles[i].draw();
-        if(particles[i].alpha <= 0){
-          particles.splice(i,1);
-          i--;
-        }
-      }
-      requestAnimationFrame(animate);
-    }
-    animate();
-
-    const btn = document.getElementById('surpriseBtn');
-    const mainText = document.getElementById('mainText');
-    const finalMsg = document.getElementById('finalMsg');
-    const bdaySong = document.getElementById('bdaySong');
-
-    btn.addEventListener('click', () => {
-      mainText.style.display = 'none';
-      finalMsg.style.display = 'block';
-      btn.style.display = 'none';
-      
-      // Play song on click
-      bdaySong.play();
-
-      // Fireworks explode at random positions continuously
-      for(let i=0;i<8;i++){
-        const x = Math.random()*canvas.width;
-        const y = Math.random()*canvas.height/2;
-        explode(x,y);
-      }
-
-      // Continue fireworks every 700ms for few seconds
-      let fwInterval = setInterval(() => {
-        for(let i=0;i<5;i++){
-          const x = Math.random()*canvas.width;
-          const y = Math.random()*canvas.height/2;
-          explode(x,y);
-        }
-      }, 700);
-
-      setTimeout(() => clearInterval(fwInterval), 5000); // stop after 5 sec
-    });
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-  </script>
+</script>
 </body>
 </html>
