@@ -11,7 +11,7 @@
       overflow: hidden;
       font-family: 'Comic Sans MS', cursive, sans-serif;
       background: radial-gradient(#000011, #000033);
-      color: #fff;
+      color: white;
       text-align: center;
       height: 100vh;
     }
@@ -32,11 +32,11 @@
 
     #mainText {
       position: absolute;
-      top: 25%;
+      top: 35%;
       width: 100%;
       font-size: 3em;
       font-weight: bold;
-      animation: fadeIn 3s forwards;
+      animation: fadeIn 2s forwards;
     }
 
     @keyframes fadeIn {
@@ -46,7 +46,7 @@
 
     #surpriseBtn {
       position: absolute;
-      top: 45%;
+      top: 50%;
       left: 50%;
       transform: translateX(-50%);
       padding: 15px 30px;
@@ -65,29 +65,29 @@
 
     .heart {
       position: absolute;
-      width: 20px;
-      height: 20px;
+      width: 25px;
+      height: 25px;
       background: red;
       transform: rotate(45deg);
-      animation: floatUp 3s ease-in forwards;
+      animation: fallDown 4s ease-in infinite;
     }
 
     .heart::before,
     .heart::after {
       content: "";
       position: absolute;
-      width: 20px;
-      height: 20px;
+      width: 25px;
+      height: 25px;
       background: red;
       border-radius: 50%;
     }
 
-    .heart::before { top: -10px; left: 0; }
-    .heart::after { left: 10px; top: 0; }
+    .heart::before { top: -12px; left: 0; }
+    .heart::after { left: 12px; top: 0; }
 
-    @keyframes floatUp {
-      0% {opacity: 1; transform: translateY(0) rotate(45deg);}
-      100% {opacity: 0; transform: translateY(-300px) rotate(45deg);}
+    @keyframes fallDown {
+      0% {opacity: 1; transform: translateY(-50px) rotate(45deg);}
+      100% {opacity: 0; transform: translateY(650px) rotate(45deg);}
     }
 
     #finalMsg {
@@ -95,65 +95,8 @@
       font-size: 1.8em;
       margin-top: 20px;
       line-height: 1.5em;
-      max-width: 80%;
+      max-width: 85%;
       margin-left: auto;
       margin-right: auto;
       animation: fadeIn 2s forwards;
     }
-  </style>
-</head>
-<body>
-
-  <div id="mainText">Happy Birthday Ashu 🎉</div>
-
-  <button id="surpriseBtn">🎁 Click for Surprise 🎁</button>
-
-  <div id="finalMsg">
-    Happy Birthday, my love! 🥰<br>
-    Every moment with you feels like a dream, and I can’t wait to make even more amazing memories together.<br>
-    You’re my favorite person, my cuddle buddy, and my heart’s happiness 💖<br>
-    Keep smiling and never forget how much I love you 😘🎉
-  </div>
-
-  <!-- Soft romantic song -->
-  <audio id="bdaySong" autoplay loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    // Generate stars
-    for(let i=0; i<150; i++){
-      let star = document.createElement('div');
-      star.className = 'star';
-      star.style.top = Math.random()*100 + '%';
-      star.style.left = Math.random()*100 + '%';
-      star.style.width = (Math.random()*3+1) + 'px';
-      star.style.height = star.style.width;
-      star.style.animationDuration = (Math.random()*3+2) + 's';
-      document.body.appendChild(star);
-    }
-
-    const btn = document.getElementById('surpriseBtn');
-    const finalMsg = document.getElementById('finalMsg');
-    const mainText = document.getElementById('mainText');
-
-    btn.addEventListener('click', () => {
-      // Move main text up slightly
-      mainText.style.top = '10%';
-      // Show final message beneath
-      finalMsg.style.display = 'block';
-      // Generate hearts
-      for(let i=0; i<50; i++){
-        let heart = document.createElement('div');
-        heart.className = 'heart';
-        heart.style.left = Math.random()*100 + '%';
-        heart.style.animationDuration = (Math.random()*2 + 2) + 's';
-        document.body.appendChild(heart);
-        setTimeout(() => { heart.remove(); }, 3000);
-      }
-      btn.style.display = 'none';
-    });
-  </script>
-
-</body>
-</html>
